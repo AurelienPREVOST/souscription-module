@@ -1,0 +1,1 @@
+# souscription-module
