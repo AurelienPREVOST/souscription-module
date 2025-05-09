@@ -1,20 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const target = document.querySelector(".flex.flex-center.gap-4");
-  if (!target) return;
+  const footerBottom = document.querySelector(".footer-bottom");
+  if (!footerBottom || !footerBottom.parentNode) return;
 
-  // Création du bouton
+  // Création du conteneur principal
+  const container = document.createElement("div");
+  container.style.marginTop = "20px";
+  container.style.padding = "10px";
+  container.style.borderTop = "1px solid #ccc";
+  container.style.display = "flex";
+  container.style.flexDirection = "column";
+  container.style.gap = "10px";
+
+  // Bouton "SOUSCRIRE"
   const button = document.createElement("button");
   button.textContent = "SOUSCRIRE";
   button.style.padding = "10px 20px";
-  button.style.margin = "10px 0";
   button.style.cursor = "pointer";
+  button.style.alignSelf = "flex-start";
 
-  // Création du formulaire (caché par défaut)
+  // Formulaire (caché au départ)
   const form = document.createElement("form");
   form.style.display = "none";
   form.style.flexDirection = "column";
   form.style.gap = "8px";
-  form.style.marginTop = "10px";
 
   const fields = ["Nom", "Prenom", "Mail", "Telephone", "Adresse postale"];
   const inputs = {};
@@ -38,12 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
   submit.style.padding = "8px";
   form.appendChild(submit);
 
-  // Afficher/masquer le formulaire
+  // Interactions
   button.addEventListener("click", () => {
     form.style.display = form.style.display === "none" ? "flex" : "none";
   });
 
-  // Soumission du formulaire
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = {};
@@ -65,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  target.appendChild(button);
-  target.appendChild(form);
+  // Insertion dans le DOM
+  container.appendChild(button);
+  container.appendChild(form);
+  footerBottom.parentNode.insertBefore(container, footerBottom);
 });
